@@ -26,7 +26,7 @@ public class TriangleTest {
         assertThat(result, closeTo(expected, 0.1));
     }
     @Test
-    public void whenTriangleDoesNotExit() {
+    public void whenTriangleDoesNotExist() {
         // создаем три объекта класса Point.
         Point a = new Point(1, 1);
         Point b = new Point(0, 2);

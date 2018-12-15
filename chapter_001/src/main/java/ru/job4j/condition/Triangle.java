@@ -37,11 +37,7 @@ public class Triangle {
      */
     private boolean exist(double ab, double ac, double bc) {
         boolean ex = true;
-        if (ab >= ac + bc) {
-            ex = false;
-        } else if (ac >= ab + bc) {
-            ex = false;
-        } else if (bc >= ab + ac) {
+        if (ab >= ac + bc || ac >= ab + bc || bc >= ab + ac) {
             ex = false;
         }
         return ex;
