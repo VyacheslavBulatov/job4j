@@ -22,4 +22,22 @@ public class MaxTest {
         int result = maxim.max(5, 3);
         assertThat(result, is(5));
     }
+    @Test
+    public void whenFirstMoreSecondAndThird() {
+        Max maxim = new Max();
+        int result = maxim.max(5, 3, 4);
+        assertThat(result, is(5));
+    }
+    @Test
+    public void whenSecondMoreFirstAndThird() {
+        Max maxim = new Max();
+        int result = maxim.max(5, 15, 2);
+        assertThat(result, is(15));
+    }
+    @Test
+    public void whenThirdMoreSecondAndFirst() {
+        Max maxim = new Max();
+        int result = maxim.max(10, 12, 14);
+        assertThat(result, is(14));
+    }
 }

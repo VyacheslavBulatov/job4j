@@ -15,4 +15,16 @@ public class Max {
     public int max(int first, int second) {
         return first  > second ? first : second;
     }
+
+    /**
+     * Определяет наибольшее из трех чисел
+     * @param first первое число
+     * @param second второе число
+     * @param third третье число
+     * @return наибольшее из трех чисел
+     */
+    public int max(int first, int second, int third) {
+        int m1 = this.max(first, second);
+        return this.max(m1, third);
+    }
 }
