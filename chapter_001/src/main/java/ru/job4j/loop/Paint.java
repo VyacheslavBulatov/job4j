@@ -26,4 +26,30 @@ public class Paint {
         }
         return screen.toString();
     }
+    public String rightTrl(int h) {
+        StringBuilder screen = new StringBuilder();
+        String ln = System.lineSeparator();
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j <= i; j++) {
+                screen.append("^");
+            }
+            screen.append(ln);
+        }
+        return screen.toString();
+    }
+    public String leftTrl(int h) {
+        StringBuilder screen = new StringBuilder();
+        String ln = System.lineSeparator();
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < h; j++) {
+                if (j < (h - i - 1)) {
+                    screen.append(" ");
+                } else {
+                    screen.append("^");
+                }
+            }
+            screen.append(ln);
+        }
+        return screen.toString();
+    }
 }
