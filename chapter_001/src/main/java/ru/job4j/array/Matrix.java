@@ -7,6 +7,11 @@ package ru.job4j.array;
  */
 
 public class Matrix {
+    /**
+     * Создает таблицу умножения заданного размера
+     * @param size размер таблицы
+     * @return таблица умножения
+     */
     public int[][] multiple(int size) {
         int[][] table = new int[size][size];
         for (int j = 0; j < size; j++) {
