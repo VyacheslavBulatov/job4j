@@ -78,7 +78,7 @@ public class Logic {
                     b++;
                 }
             }
-            if (a == 5 || b == 5) {
+            if (a == table[i].length || b == table.length) {
                 result = true;
                 break;
             }
