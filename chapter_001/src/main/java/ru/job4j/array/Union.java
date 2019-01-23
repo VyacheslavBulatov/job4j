@@ -19,11 +19,11 @@ public class Union {
         int b = 0;
         for (int i = 0; i < result.length; i++) {
             if (a != first.length && b != second.length) {
-               result[i] = first[a] < second[b] ? first[a++] : second[b++];
-                } else {
+                result[i] = first[a] < second[b] ? first[a++] : second[b++];
+            } else {
                 result[i] = a != first.length ? first[a++] : second[b++];
             }
-            }
+        }
         return result;
     }
 }
