@@ -7,7 +7,7 @@ package ru.job4j.professions;
  * @since 0.1
  */
 public class Student {
-    public String name;
+    private String name;
 
     public Student(String name) {
         this.name = name;

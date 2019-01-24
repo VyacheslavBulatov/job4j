@@ -7,7 +7,7 @@ package ru.job4j.professions;
  * @since 0.1
  */
 public class House {
-    public String adress;
+    private String adress;
 
     public House(String adress) {
         this.adress = adress;
