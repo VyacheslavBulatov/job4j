@@ -31,7 +31,7 @@ public class Item {
      * @param name имя
      * @param desc описание
      */
-    Item(String name, String desc) {
+    public Item(String name, String desc) {
         this.name = name;
         this.desc = desc;
     }
