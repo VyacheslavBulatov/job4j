@@ -10,6 +10,7 @@ import java.io.PrintStream;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
+
 public class StartUITest {
     /**
      * поле содержит дефолтный вывод в консоль.
@@ -58,7 +59,7 @@ public class StartUITest {
         Item item = tracker.add(new Item("test name", "desc"));
         Input input = new StubInput(new String[]{"1", "6"});
         new StartUI(input, tracker).init();
-        String expected = item.getName() + " Description:" + " '" + item.getDesc() + "' with Id: " + item.getId();
+        String expected = item.getId();
         assertTrue(new String(out.toByteArray()).contains(expected));
     }
     /**
@@ -99,7 +100,7 @@ public class StartUITest {
         Item item = tracker.add(new Item("test name", "desc"));
         Input input = new StubInput(new String[]{"4", item.getId(), "6"});
         new StartUI(input, tracker).init();
-        String expected = item.getName() + " Description:" + " '" + item.getDesc() + "' with Id: " + item.getId();
+        String expected = item.getId();
         assertTrue(new String(out.toByteArray()).contains(expected));
     }
     /**
@@ -120,7 +121,7 @@ public class StartUITest {
         Item item = tracker.add(new Item("test name", "desc"));
         Input input = new StubInput(new String[]{"5", item.getName(), "6"});
         new StartUI(input, tracker).init();
-        String expected = item.getName() + " Description:" + " '" + item.getDesc() + "' with Id: " + item.getId();
+        String expected = item.getId();
         assertTrue(new String(out.toByteArray()).contains(expected));
     }
 }

@@ -13,4 +13,12 @@ public interface Input {
      * @return ответ пользователя
      */
     String ask(String question);
+
+    /**
+     * Реализует выбор пунтков меню пользователем
+     * @param question вопрос для пользователя
+     * @param range список возможных ответов
+     * @return ответ пользователя, если он подходит, иначе ошибку
+     */
+    int ask(String question, int[] range);
 }

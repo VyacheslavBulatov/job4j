@@ -1,5 +1,10 @@
 package ru.job4j.tracker;
 
+/**
+ * @author Viacheslav Bulatov (bul290896@yandex.ru)
+ * @version $Id$
+ * @since 0.1
+ */
 public class MenuTracker {
     /**
      * хранит ссылку на объект .
@@ -26,13 +31,31 @@ public class MenuTracker {
         this.input = input;
         this.tracker = tracker;
     }
-
-    public void init() {
-        fillActions();
-        while (!exit) {
-            show();
-            select(Integer.valueOf(input.ask("Выберете пункт меню:")));
+    /**
+     * Массив допустимых ответов пользователя в меню
+     */
+    private int[] range = new int[actions.length];
+    /**
+     * Заполняет массив допустимых ответов пользователя в меню
+     */
+    public void fillRange() {
+        for (int i = 0; i < actions.length; i++) {
+            range[i] = actions[i].key();
         }
+    }
+    /**
+     * Возвращает массив допустимых ответов пользователя в меню
+     * @return массив допустимых ответов пользователя в меню
+     */
+    public int[] getRange() {
+        return range;
+    }
+    /**
+     * Метод, возвращающий значение переменной exit
+     * @return значение переменной exit
+     */
+    public boolean getExit() {
+        return exit;
     }
     /**
      * Метод заполняет массив.
@@ -61,7 +84,7 @@ public class MenuTracker {
      * @param item заявка
      */
     private void showItem(Item item) {
-        System.out.println(item.getName() + " Description:" + " '" + item.getDesc() + "' with Id: " + item.getId());
+        System.out.println(item.getName() + " Description:" + " \"" + item.getDesc() + "\" with Id: " + item.getId());
     }
     /**
      * Вывод на консоль списка заявок
