@@ -45,19 +45,16 @@ public class StubInput implements Input {
     @Override
     public int ask(String question, int[] range) {
         int key = Integer.valueOf(this.value[this.position++]);
-        boolean exis = false;
+        boolean exist = false;
         for (int value : range) {
             if (value == key) {
-                exis = true;
+                exist = true;
                 break;
             }
         }
-        if (exis) {
-            return key;
-        } else {
+        if (!exist) {
             throw new MenuOutException("Out of range");
         }
+        return key;
     }
-
-
 }
