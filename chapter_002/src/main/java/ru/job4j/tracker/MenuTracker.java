@@ -61,13 +61,14 @@ public class MenuTracker {
      * Метод заполняет массив.
      */
     public void fillActions() {
-        this.actions[0] = this.new AddItem();
-        this.actions[1] = this.new ShowAllItems();
-        this.actions[2] = this.new EditItem();
-        this.actions[3] = this.new DeleteItem();
-        this.actions[4] = this.new FindByID();
-        this.actions[5] = this.new FindByName();
-        this.actions[6] = this.new Exit();
+        int key = 0;
+        this.actions[key] = this.new AddItem(key++, "Add item");
+        this.actions[key] = this.new ShowAllItems(key++, "Show all items.");
+        this.actions[key] = this.new EditItem(key++, "Edit item.");
+        this.actions[key] = this.new DeleteItem(key++, "Delete item.");
+        this.actions[key] = this.new FindByID(key++, "Find item by Id.");
+        this.actions[key] = this.new FindByName(key++, "Find items by name.");
+        this.actions[key] = this.new Exit(key, "Exit.");
     }
     /**
      * Метод выводит на экран меню.
@@ -75,7 +76,7 @@ public class MenuTracker {
     public void show() {
         for (UserAction action : this.actions) {
             if (action != null) {
-                System.out.println(action.key() + ". " + action.info());
+                System.out.println(action.info());
             }
         }
     }
@@ -112,10 +113,9 @@ public class MenuTracker {
     /**
      * Реализация пункта меню: Add new Item.
      */
-    public class AddItem implements UserAction {
-        @Override
-        public int key() {
-            return 0;
+    private class AddItem extends BaseAction {
+        public AddItem(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -127,20 +127,14 @@ public class MenuTracker {
             tracker.add(item);
             System.out.println("------------ Новая заявка с getId : " + item.getId() + "-----------");
         }
-
-        @Override
-        public String info() {
-            return "Add new Item.";
-        }
     }
 
     /**
      * Реализация пункта меню: Show all items.
      */
-    public class ShowAllItems implements UserAction {
-        @Override
-        public int key() {
-            return 1;
+    private class ShowAllItems extends BaseAction {
+        public ShowAllItems(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -148,18 +142,13 @@ public class MenuTracker {
             MenuTracker.this.showAllItems(tracker.findAll());
         }
 
-        @Override
-        public String info() {
-            return "Show all items.";
-        }
     }
     /**
      * Реализация пункта меню: Edit item.
      */
-    public class EditItem implements UserAction {
-        @Override
-        public int key() {
-            return 2;
+    private class EditItem extends BaseAction {
+        public EditItem(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -176,19 +165,13 @@ public class MenuTracker {
                 System.out.println("------------ Заявка изменена --------------");
             }
         }
-
-        @Override
-        public String info() {
-            return "Edit item.";
-        }
     }
     /**
      * Реализация пункта меню: Delete item.
      */
-    public class DeleteItem implements UserAction {
-        @Override
-        public int key() {
-            return 3;
+    private class DeleteItem extends BaseAction {
+        public DeleteItem(int key, String name) {
+            super(key, name);
         }
 
         @Override
@@ -202,21 +185,14 @@ public class MenuTracker {
                 System.out.println("------------ Заявка удалена --------------");
             }
         }
-
-        @Override
-        public String info() {
-            return "Delete item.";
-        }
     }
     /**
      * Реализация пункта меню: Find item by Id.
      */
-    public class FindByID implements UserAction {
-        @Override
-        public int key() {
-            return 4;
+    private class FindByID extends BaseAction {
+        public FindByID(int key, String name) {
+            super(key, name);
         }
-
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Поиск заявки по Id --------------");
@@ -227,51 +203,32 @@ public class MenuTracker {
                 MenuTracker.this.showItem(tracker.findById(id));
             }
         }
-
-        @Override
-        public String info() {
-            return "Find item by Id.";
-        }
     }
     /**
      * Реализация пункта меню: Find items by name.
      */
-    public class FindByName implements UserAction {
-        @Override
-        public int key() {
-            return 5;
+    private class FindByName extends BaseAction {
+        public FindByName(int key, String name) {
+            super(key, name);
         }
-
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Поиск заявок по названию --------------");
             String name = input.ask("Введите имя заявки :");
             MenuTracker.this.showAllItems(tracker.findByName(name));
         }
-
-        @Override
-        public String info() {
-            return "Find items by name.";
-        }
-    }
+}
     /**
      * Реализация пункта меню: Find items by name.
      */
-    public class Exit implements UserAction {
-        @Override
-        public int key() {
-            return 6;
+    private class Exit extends BaseAction {
+        public Exit(int key, String name) {
+            super(key, name);
         }
 
         @Override
         public void execute(Input input, Tracker tracker) {
             MenuTracker.this.exit = true;
         }
-
-        @Override
-        public String info() {
-            return "Exit.";
-        }
     }
-
 }
