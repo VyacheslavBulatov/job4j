@@ -24,7 +24,7 @@ public class Path {
     public Cell[] getRookPath(Cell source, Cell dest) throws ImpossibleMoveException {
         int dx = dest.x - source.x;
         int dy = dest.y - source.y;
-        if(dx != 0 && dy != 0) {
+        if (dx != 0 && dy != 0) {
             throw new ImpossibleMoveException("Ладья ходит только по прямой");
         }
         return this.getPath(source, dest);
@@ -40,7 +40,7 @@ public class Path {
     public Cell[] getKnightPath(Cell source, Cell dest) throws ImpossibleMoveException {
         int dx = dest.x - source.x;
         int dy = dest.y - source.y;
-        if(!((Math.abs(dx) == 2 && Math.abs(dy) == 1) || (Math.abs(dx) == 1 && Math.abs(dy) == 2))) {
+        if (!((Math.abs(dx) == 2 && Math.abs(dy) == 1) || (Math.abs(dx) == 1 && Math.abs(dy) == 2))) {
             throw new ImpossibleMoveException("Конь может ходить только буквой Г");
         }
         return new Cell[] {dest};

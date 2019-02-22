@@ -26,10 +26,10 @@ public class PawnBlack implements Figure {
     public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
         int dx = dest.x - source.x;
         int dy = dest.y - source.y;
-        if(source.y == 6 && (Math.abs(dy) > 2 || dx != 0 || dy > 0 )) {
+        if (source.y == 6 && (Math.abs(dy) > 2 || dx != 0 || dy > 0)) {
             throw new ImpossibleMoveException("Пешка со стартовой позици может двигаться только на одну или две клетки вперед");
         }
-        if(source.y != 6 && (Math.abs(dy) > 1 || dx != 0 || dy > 0 )) {
+        if (source.y != 6 && (Math.abs(dy) > 1 || dx != 0 || dy > 0)) {
             throw new ImpossibleMoveException("Пешка не со стартовой позиции может двигаться только на одну клетку вперед");
         }
         return new Path().getPath(source, dest);
