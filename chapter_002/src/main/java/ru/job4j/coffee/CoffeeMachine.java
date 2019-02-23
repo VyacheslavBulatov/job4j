@@ -8,29 +8,29 @@ package ru.job4j.coffee;
  */
 public class CoffeeMachine {
     /**
-     * Массив монет, отсавшихся в автомате
-     */
-    private int[] remcoins = new int[4];
-    /**
      * Массив восзможных номиналов монет для сдачи
      */
     private final int[] coins = {10, 5, 2, 1};
+    /**
+     * Массив монет, отсавшихся в автомате
+     */
+    private int[] remcoins = new int[this.coins.length];
     /**
      * Массив восзможных номиналов купюр для приема
      */
     private final int[] banknotes = {50, 100, 200, 500, 1000, 2000, 5000};
     /**
      * Конструктор создания кофемшины
-     * @param ten количество 10-рублевых монет
-     * @param five количество 5-рублевых монет
-     * @param two количество 2-рублевых монет
-     * @param one количество 1-рублевых монет
+     * @param coin массив с количеством монет
      */
-    public CoffeeMachine(int ten, int five, int two, int one) {
-        this.remcoins[0] = ten;
-        this.remcoins[1] = five;
-        this.remcoins[2] = two;
-        this.remcoins[3] = one;
+    public CoffeeMachine(int[] coin) {
+        for (int i = 0; i < this.coins.length; i++) {
+            if (i < coin.length) {
+                this.remcoins[i] = coin[i];
+            } else {
+                this.remcoins[i] = 0;
+            }
+        }
     }
     /**
      * Возвращает сдачу в монетах если хватает монет и коректно введены номинал купюры  и цена
@@ -72,14 +72,11 @@ public class CoffeeMachine {
     private int[] fillChange(int[] coin) {
         int[] change = new int[this.sum(coin)];
         for (int i = 0; i < change.length; i++) {
-            if (i < coin[0]) {
-                change[i] = 10;
-            } else if (i < coin[0] + coin[1]) {
-                change[i] = 5;
-            } else if (i < coin[0] + coin[1] + coin[2]) {
-                change[i] = 2;
-            } else {
-                change[i] = 1;
+            for (int j = 0; j < this.coins.length; j++) {
+                if (i < this.sumN(coin, j + 1)) {
+                    change[i] = this.coins[j];
+                    break;
+                }
             }
         }
         return change;
@@ -90,8 +87,8 @@ public class CoffeeMachine {
      * @return массив, элементы которого - количество монет для сдачи
      */
     private int[] changecoins(int change) {
-        int[] changecoin = new int[4];
-        for (int i = 0; i < 4; i++) {
+        int[] changecoin = new int[this.coins.length];
+        for (int i = 0; i < this.coins.length; i++) {
             int quotient = change / coins[i];
             if (quotient > 0) {
                 if (quotient < this.remcoins[i]) {
@@ -106,26 +103,38 @@ public class CoffeeMachine {
         return changecoin;
     }
     /**
-     * Находит сумму первых 4 элементов массива длины
+     * Находит сумму элементов массива длины
      * @param sum заданный массив
-     * @return сумма первых 4  элементов массива
+     * @return сумма элементов массива
      */
     private int sum(int[] sum) {
         int rst = 0;
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < this.coins.length; i++) {
             rst += sum[i];
         }
         return rst;
     }
     /**
-     * Находит первых 4  элементов массива, с учетом номинала
+     * Находит сумму первых n элементов массива длины
+     * @param sum заданный массив
+     * @return сумма первых n элементов массива
+     */
+    private int sumN(int[] sum, int n) {
+        int rst = 0;
+        for (int i = 0; i < n; i++) {
+            rst += sum[i];
+        }
+        return rst;
+    }
+    /**
+     * Находит элементов массива, с учетом номинала
      * Номинал 0-го элемента = 10, 1-го - 5, 2-го - 2 и 3-го -1.
      * @param sum заданный массив
-     * @return сумма первых 4  элементов массива, с учетом номинала
+     * @return сумма элементов массива, с учетом номинала
      */
     private int changesum(int[] sum) {
         int rst = 0;
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < this.coins.length; i++) {
             rst += this.coins[i] * sum[i];
         }
         return rst;
