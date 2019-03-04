@@ -12,7 +12,7 @@ public class CoffeeMachine {
      */
     private final int[] coins = {10, 5, 2, 1};
     /**
-     * Массив монет, отсавшихся в автомате
+     * Массив монет, оставшихся в автомате
      */
     private int[] remcoins = new int[this.coins.length];
     /**
@@ -70,7 +70,7 @@ public class CoffeeMachine {
      * @return сдача
      */
     private int[] fillChange(int[] coin) {
-        int[] change = new int[this.sum(coin)];
+        int[] change = new int[this.sumN(coin, this.coins.length)];
         for (int i = 0; i < change.length; i++) {
             for (int j = 0; j < this.coins.length; j++) {
                 if (i < this.sumN(coin, j + 1)) {
@@ -103,19 +103,7 @@ public class CoffeeMachine {
         return changecoin;
     }
     /**
-     * Находит сумму элементов массива длины
-     * @param sum заданный массив
-     * @return сумма элементов массива
-     */
-    private int sum(int[] sum) {
-        int rst = 0;
-        for (int i = 0; i < this.coins.length; i++) {
-            rst += sum[i];
-        }
-        return rst;
-    }
-    /**
-     * Находит сумму первых n элементов массива длины
+     * Находит сумму первых n элементов массива
      * @param sum заданный массив
      * @return сумма первых n элементов массива
      */

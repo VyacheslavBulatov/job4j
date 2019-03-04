@@ -6,10 +6,12 @@ public class Path {
     public  Cell[] getPath(Cell source, Cell dest) {
         int dx = dest.x - source.x;
         int dy = dest.y - source.y;
+        int dirdx = Integer.compare(dx, 0);
+        int dirdy = Integer.compare(dy, 0);
         Cell[] steps = new Cell[Math.max(Math.abs(dx), Math.abs(dy))];
         for (int i = 0; i < steps.length; i++) {
-            steps[i] = Cell.findByXY(source.x + (i + 1) * Integer.compare(dx, 0),
-                    source.y + (i + 1) * Integer.compare(dy, 0));
+            steps[i] = Cell.findByXY(source.x + (i + 1) * dirdx,
+                    source.y + (i + 1) * dirdy);
         }
         return steps;
     }
