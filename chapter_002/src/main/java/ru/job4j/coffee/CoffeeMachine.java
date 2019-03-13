@@ -1,4 +1,5 @@
 package ru.job4j.coffee;
+import java.util.Arrays;
 
 /**
  * Кофемашина
@@ -36,18 +37,31 @@ public class CoffeeMachine {
      * Возвращает сдачу в монетах если хватает монет и коректно введены номинал купюры  и цена
      * @param value Введенная купюра
      * @param price цена напитка
-     * @return сдача в монетах,
+     * @return сдача в монетах
      */
     public int[] change(int value, int price) {
         int change = value - price;
+        int[] result = new int[0];
+        int index = 0;
         if (!this.correctValue(value)) {
             throw new IncorrectValueException("Такая купюра не принимается");
         } else if (value < price) {
             throw new IncorrectValueException("Недостаточно средств для покупки");
-        } else if (change - this.changesum(this.changecoins(change)) > 0) {
-            throw new IncorrectValueException("Невозможно выдать сдачу");
+        } else {
+            for (int i = 0; i < coins.length; i++) {
+                while (change >= coins[i] && this.remcoins[i] != 0) {
+                    index++;
+                    result = Arrays.copyOf(result, index);
+                    result[index - 1] = coins[i];
+                    change -= coins[i];
+                    this.remcoins[i] -= 1;
+                }
+            }
+            if (change != 0) {
+                throw new IncorrectValueException("Невозможно выдать сдачу");
+            }
         }
-        return this.fillChange(this.changecoins(change));
+        return result;
     }
     /**
      * Проверяет вводимую купюру
@@ -61,69 +75,6 @@ public class CoffeeMachine {
                 rst = true;
                 break;
             }
-        }
-        return rst;
-    }
-    /**
-     * Возвращает итоговый вариант сдачи
-     * @param coin массив, элементы которого - количество монет для сдачи
-     * @return сдача
-     */
-    private int[] fillChange(int[] coin) {
-        int[] change = new int[this.sumN(coin, this.coins.length)];
-        for (int i = 0; i < change.length; i++) {
-            for (int j = 0; j < this.coins.length; j++) {
-                if (i < this.sumN(coin, j + 1)) {
-                    change[i] = this.coins[j];
-                    break;
-                }
-            }
-        }
-        return change;
-    }
-    /**
-     * Возвращает массив, элементы которого - количество монет для сдачи
-     * @param change сдача
-     * @return массив, элементы которого - количество монет для сдачи
-     */
-    private int[] changecoins(int change) {
-        int[] changecoin = new int[this.coins.length];
-        for (int i = 0; i < this.coins.length; i++) {
-            int quotient = change / coins[i];
-            if (quotient > 0) {
-                if (quotient < this.remcoins[i]) {
-                    changecoin[i] = quotient;
-                    change %= coins[i];
-                } else {
-                    changecoin[i] = this.remcoins[i];
-                    change -= coins[i] * this.remcoins[i];
-                }
-            }
-        }
-        return changecoin;
-    }
-    /**
-     * Находит сумму первых n элементов массива
-     * @param sum заданный массив
-     * @return сумма первых n элементов массива
-     */
-    private int sumN(int[] sum, int n) {
-        int rst = 0;
-        for (int i = 0; i < n; i++) {
-            rst += sum[i];
-        }
-        return rst;
-    }
-    /**
-     * Находит элементов массива, с учетом номинала
-     * Номинал 0-го элемента = 10, 1-го - 5, 2-го - 2 и 3-го -1.
-     * @param sum заданный массив
-     * @return сумма элементов массива, с учетом номинала
-     */
-    private int changesum(int[] sum) {
-        int rst = 0;
-        for (int i = 0; i < this.coins.length; i++) {
-            rst += this.coins[i] * sum[i];
         }
         return rst;
     }
