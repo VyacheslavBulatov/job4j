@@ -19,20 +19,4 @@ public class CoffeeMachineTest {
         int[] expected = {5, 5, 2, 2, 1};
         assertThat(rst, is(expected));
     }
-    @Test(expected = IncorrectValueException.class)
-    public void whenMachineCannotGiveChange() {
-        CoffeeMachine machine = new CoffeeMachine(new int[] {0, 2, 3, 5});
-        machine.change(50, 15);
-    }
-    @Test(expected = IncorrectValueException.class)
-    public void whenMachineGetIncorrectValue() {
-        CoffeeMachine machine = new CoffeeMachine(new int[] {0, 2, 3, 5});
-        machine.change(60, 15);
-    }
-    @Test(expected = IncorrectValueException.class)
-    public void whenPriceMoreThanValue() {
-        CoffeeMachine machine = new CoffeeMachine(new int[] {0, 2, 3, 5});
-        machine.change(50, 75);
-    }
-
 }
