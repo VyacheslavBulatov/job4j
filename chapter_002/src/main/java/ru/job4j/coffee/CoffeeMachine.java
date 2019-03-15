@@ -40,26 +40,31 @@ public class CoffeeMachine {
      * @return сдача в монетах
      */
     public int[] change(int value, int price) {
+        if (!this.correctValue(value)) {
+            throw new IncorrectValueException("Такая купюра не принимается");
+        }
+        if (value < price) {
+            throw new IncorrectValueException("Недостаточно средств для покупки");
+        }
         int change = value - price;
         int[] result = new int[0];
         int index = 0;
-        if (!this.correctValue(value)) {
-            throw new IncorrectValueException("Такая купюра не принимается");
-        } else if (value < price) {
-            throw new IncorrectValueException("Недостаточно средств для покупки");
-        } else {
-            for (int i = 0; i < coins.length; i++) {
-                while (change >= coins[i] && this.remcoins[i] != 0) {
-                    index++;
-                    result = Arrays.copyOf(result, index);
-                    result[index - 1] = coins[i];
-                    change -= coins[i];
-                    this.remcoins[i] -= 1;
-                }
+        int[] back = new int[coins.length];
+        for (int i = 0; i < coins.length; i++) {
+            while (change >= coins[i] && this.remcoins[i] != 0) {
+                index++;
+                result = Arrays.copyOf(result, index);
+                result[index - 1] = coins[i];
+                change -= coins[i];
+                this.remcoins[i] -= 1;
+                back[i] += 1;
             }
-            if (change != 0) {
-                throw new IncorrectValueException("Невозможно выдать сдачу");
+        }
+        if (change != 0) {
+            for (int i = 0; i < back.length; i++) {
+                remcoins[i] += back[i];
             }
+            throw new IncorrectValueException("Невозможно выдать сдачу");
         }
         return result;
     }

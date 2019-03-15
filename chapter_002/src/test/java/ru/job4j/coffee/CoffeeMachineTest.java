@@ -32,7 +32,7 @@ public class CoffeeMachineTest {
     @Test(expected = IncorrectValueException.class)
     public void whenPriceMoreThanValue() {
         CoffeeMachine machine = new CoffeeMachine(new int[] {0, 2, 3, 5});
-        machine.change(60, 75);
+        machine.change(50, 75);
     }
 
 }
