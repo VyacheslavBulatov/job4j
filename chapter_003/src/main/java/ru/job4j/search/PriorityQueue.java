@@ -6,10 +6,8 @@ public class PriorityQueue {
     private LinkedList<Task> tasks = new LinkedList<>();
 
     /**
-     * Метод должен вставлять в нужную позицию элемент.
-     * Позиция определять по полю приоритет.
-     * Для вставик использовать add(int index, E value)
-     * @param task задача
+     * Добавляет задачу в очередь в зависимости от её приоритета
+     * @param task задача, которую необходимо добавить
      */
     public void put(Task task) {
         boolean result = false;
