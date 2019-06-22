@@ -1,7 +1,11 @@
 package ru.job4j.list;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author Viacheslav Bulatov (bul290896@yandex.ru)
+ * @version $Id$
+ * @since 0.1
+ */
 public class ConvertList {
     /**
      * Конвертирует список массивов в один большой список

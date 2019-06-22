@@ -2,7 +2,11 @@ package ru.job4j.search;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author Viacheslav Bulatov (bul290896@yandex.ru)
+ * @version $Id$
+ * @since 0.1
+ */
 public class PhoneDictionary {
     private List<Person> persons = new ArrayList<>();
 

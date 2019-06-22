@@ -1,7 +1,11 @@
 package ru.job4j.search;
 
 import java.util.LinkedList;
-
+/**
+ * @author Viacheslav Bulatov (bul290896@yandex.ru)
+ * @version $Id$
+ * @since 0.1
+ */
 public class PriorityQueue {
     private LinkedList<Task> tasks = new LinkedList<>();
 

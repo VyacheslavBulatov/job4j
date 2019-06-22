@@ -1,8 +1,12 @@
 package ru.job4j.list;
 
 import java.util.List;
-
-    public class ConvertList2Array {
+/**
+ * @author Viacheslav Bulatov (bul290896@yandex.ru)
+ * @version $Id$
+ * @since 0.1
+ */
+public class ConvertList2Array {
         /**
          * Конвертирует ArrayList в двухмерный массив с заданным количеством строк
          * @param list заданный ArrayList

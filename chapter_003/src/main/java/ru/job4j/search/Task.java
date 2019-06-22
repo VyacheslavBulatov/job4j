@@ -1,5 +1,9 @@
 package ru.job4j.search;
-
+/**
+ * @author Viacheslav Bulatov (bul290896@yandex.ru)
+ * @version $Id$
+ * @since 0.1
+ */
 public class Task {
     private String desc;
     private int priority;
