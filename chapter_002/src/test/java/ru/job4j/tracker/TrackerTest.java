@@ -1,6 +1,10 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
@@ -11,7 +15,7 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item item = new Item("test1", "testDescription", 123L);
         tracker.add(item);
-        assertThat(tracker.findAll()[0], is(item));
+        assertThat(tracker.findAll().get(0), is(item));
     }
     @Test
     public void whenAddNewItemsThenTrackerHasSameItems() {
@@ -22,7 +26,7 @@ public class TrackerTest {
         tracker.add(item1);
         tracker.add(item2);
         tracker.add(item3);
-        Item[] expected = {item1, item2, item3};
+        List<Item> expected = Arrays.asList(item1, item2, item3);
         assertThat(tracker.findAll(), is(expected));
     }
     @Test
@@ -38,7 +42,7 @@ public class TrackerTest {
         tracker.add(item3);
         tracker.add(item4);
         tracker.add(item5);
-        Item[] expected = {item3, item4, item5};
+        List<Item> expected = Arrays.asList(item3, item4, item5);
         assertThat(tracker.findByName("test3"), is(expected));
     }
     @Test
@@ -76,7 +80,7 @@ public class TrackerTest {
         tracker.add(item3);
         tracker.add(item4);
         tracker.delete(item3.getId());
-        Item[] expected = {item1, item2, item4};
+        List<Item> expected = Arrays.asList(item1, item2, item4);
         assertThat(tracker.findAll(), is(expected));
     }
     @Test

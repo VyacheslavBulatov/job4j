@@ -10,17 +10,13 @@ import java.util.*;
  */
 public class Tracker {
     /**
-     * Массив для хранение заявок.
+     * Список заявок.
      */
-    private final Item[] items = new Item[100];
+    private final List<Item> items = new ArrayList<>();
     /**
      * ГСЧ для генерации идентификаторов заявок
      */
     private static final Random RN = new Random();
-    /**
-     * Указатель ячейки для новой заявки.
-     */
-    private int position = 0;
 
     /**
      * Метод реализующий добавление заявки в хранилище
@@ -28,7 +24,7 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(this.generateId());
-        this.items[this.position++] = item;
+        this.items.add(item);
         return item;
     }
     /**
@@ -44,19 +40,15 @@ public class Tracker {
      * Заменяет заявку с заданным идентиффикатором
      * @param id идентификатор
      * @param item новая заявка
-     * @return true если удалось заменить, false иначе
      */
-    public boolean replace(String id, Item item) {
-        boolean result = false;
-        for (int i = 0; i < this.position; i++) {
-            if (this.items[i].getId().equals(id)) {
+    public void replace(String id, Item item) {
+        for (int i = 0; i < this.items.size(); i++) {
+            if (this.items.get(i).getId().equals(id)) {
                 item.setId(id);
-                this.items[i] = item;
-                result = true;
+                this.items.set(i, item);
                 break;
             }
         }
-        return result;
     }
 
     /**
@@ -66,9 +58,9 @@ public class Tracker {
      */
     public boolean delete(String id) {
         boolean result = false;
-        for (int i = 0; i < this.position; i++) {
-            if (this.items[i].getId().equals(id)) {
-                System.arraycopy(this.items, i + 1, this.items, i, this.position-- - i);
+        for (int i = 0; i < this.items.size(); i++) {
+            if (this.items.get(i).getId().equals(id)) {
+                this.items.remove(i);
                 result = true;
                 break;
             }
@@ -77,11 +69,11 @@ public class Tracker {
     }
 
     /**
-     * Возвращает копию массива заявок без null элементов
-     * @return копия массива заявок без null элементов
+     * Возвращает список всех заявок
+     * @return список всех заявок
      */
-    public Item[] findAll() {
-        return Arrays.copyOf(this.items, this.position);
+    public List<Item> findAll() {
+        return this.items;
     }
 
     /**
@@ -89,15 +81,14 @@ public class Tracker {
      * @param key имя заявки
      * @return список заявок с данным именем
      */
-    public Item[] findByName(String key) {
-        Item[] result = new Item[this.position];
-        int counter = 0;
-        for (int i = 0; i < this.position; i++) {
-            if (this.items[i].getName().equals(key)) {
-                result[counter++] = this.items[i];
+    public  List<Item> findByName(String key) {
+        List<Item> result = new ArrayList<>();
+        for (Item item : this.items) {
+            if (item.getName().equals(key)) {
+                result.add(item);
             }
         }
-        return Arrays.copyOf(result, counter);
+        return result;
     }
 
     /**
@@ -107,9 +98,9 @@ public class Tracker {
      */
     public Item findById(String id) {
         Item result = null;
-        for (int i = 0; i < this.position; i++) {
-            if (this.items[i].getId().equals(id)) {
-                result = this.items[i];
+        for (Item item : this.items) {
+            if (item.getId().equals(id)) {
+                result = item;
                 break;
             }
         }

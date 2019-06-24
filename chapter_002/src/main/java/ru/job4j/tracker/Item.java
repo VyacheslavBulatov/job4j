@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 /**
  * Класс заявки
  * @author Viacheslav Bulatov (bul290896@yandex.ru)
@@ -16,7 +18,7 @@ public class Item {
     /** Дата создания */
     private long create;
     /** Список комментариев */
-    private String[] comments;
+    private List<String> comments;
 
     /**
      * Конструктор создания нового объекта

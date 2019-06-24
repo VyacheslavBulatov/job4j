@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 /**
  * Интерфейс ввода
  * @author Viacheslav Bulatov (bul290896@yandex.ru)
@@ -20,5 +22,5 @@ public interface Input {
      * @param range список возможных ответов
      * @return ответ пользователя, если он подходит, иначе ошибку
      */
-    int ask(String question, int[] range);
+    int ask(String question, List<Integer> range);
 }

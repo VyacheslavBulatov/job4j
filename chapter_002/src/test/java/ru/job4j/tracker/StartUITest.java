@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -37,16 +38,16 @@ public class StartUITest {
      */
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
-        Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});
+        Input input = new StubInput(Arrays.asList("0", "test name", "desc", "6"));
         new StartUI(input, tracker).init();
-        assertThat(tracker.findAll()[0].getName(), is("test name"));
+        assertThat(tracker.findAll().get(0).getName(), is("test name"));
     }
     /**
      * Тест проверяющий пункт меню: 1. Show all items в случае, когда заявок нет
      */
     @Test
     public void whenGetAllItemsWithoutAdd() {
-        Input input = new StubInput(new String[]{"1", "6"});
+        Input input = new StubInput(Arrays.asList("1", "6"));
         new StartUI(input, tracker).init();
         String expected = "Заявок нет";
         assertTrue(new String(out.toByteArray()).contains(expected));
@@ -57,7 +58,7 @@ public class StartUITest {
     @Test
     public void whenUserAddItemThenGetAllItems() {
         Item item = tracker.add(new Item("test name", "desc"));
-        Input input = new StubInput(new String[]{"1", "6"});
+        Input input = new StubInput(Arrays.asList("1", "6"));
         new StartUI(input, tracker).init();
         String expected = item.getId();
         assertTrue(new String(out.toByteArray()).contains(expected));
@@ -68,7 +69,7 @@ public class StartUITest {
     @Test
     public void whenUpdateThenTrackerHasUpdatedValue() {
         Item item = tracker.add(new Item("test name", "desc"));
-        Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "6"});
+        Input input = new StubInput(Arrays.asList("2", item.getId(), "test replace", "заменили заявку", "6"));
         new StartUI(input, tracker).init();
         assertThat(tracker.findById(item.getId()).getName(), is("test replace"));
     }
@@ -78,7 +79,7 @@ public class StartUITest {
     @Test
     public void whenDeleteThenTrackerHasnotItem() {
         Item item = tracker.add(new Item("test name", "desc"));
-        Input input = new StubInput(new String[]{"3", item.getId(), "6"});
+        Input input = new StubInput(Arrays.asList("3", item.getId(), "6"));
         new StartUI(input, tracker).init();
         assertNull(tracker.findById(item.getId()));
     }
@@ -87,7 +88,7 @@ public class StartUITest {
      */
     @Test
     public void whenGetItemByIdWithoutAddingItems() {
-        Input input = new StubInput(new String[]{"4", "123", "6"});
+        Input input = new StubInput(Arrays.asList("4", "123", "6"));
         new StartUI(input, tracker).init();
         String expected = "Заявки с заданным Id не существует";
         assertTrue(new String(out.toByteArray()).contains(expected));
@@ -98,7 +99,7 @@ public class StartUITest {
     @Test
     public void whenUserAddItemThemGetItemById() {
         Item item = tracker.add(new Item("test name", "desc"));
-        Input input = new StubInput(new String[]{"4", item.getId(), "6"});
+        Input input = new StubInput(Arrays.asList("4", item.getId(), "6"));
         new StartUI(input, tracker).init();
         String expected = item.getId();
         assertTrue(new String(out.toByteArray()).contains(expected));
@@ -108,7 +109,7 @@ public class StartUITest {
      */
     @Test
     public void whenGetItemByNameWithoutAddingItems() {
-        Input input = new StubInput(new String[]{"5", "123", "6"});
+        Input input = new StubInput(Arrays.asList("5", "123", "6"));
         new StartUI(input, tracker).init();
         String expected = "Заявок нет";
         assertTrue(new String(out.toByteArray()).contains(expected));
@@ -119,7 +120,7 @@ public class StartUITest {
     @Test
     public void whenUserAddItemThemGetItemByName() {
         Item item = tracker.add(new Item("test name", "desc"));
-        Input input = new StubInput(new String[]{"5", item.getName(), "6"});
+        Input input = new StubInput(Arrays.asList("5", item.getName(), "6"));
         new StartUI(input, tracker).init();
         String expected = item.getId();
         assertTrue(new String(out.toByteArray()).contains(expected));

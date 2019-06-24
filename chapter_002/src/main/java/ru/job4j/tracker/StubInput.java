@@ -1,5 +1,8 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+import java.util.ListIterator;
+
 /**
  * @author Viacheslav Bulatov (bul290896@yandex.ru)
  * @version $Id$
@@ -9,20 +12,20 @@ public class StubInput implements Input {
     /**
      * Поле, содержащее список ответов пользователя
      */
-    private String[] value;
-
+    private List<String> value;
     /**
-     * Поле считает количество вызовом метода ask.
-     * При каждом вызове надо передвинуть указатель на новое число.
+     * Итератор для списка ответов
      */
-    private int position;
+    private ListIterator<String> iterator;
+
 
     /**
      * Конструктор объекта класса StubInput
      * @param value список ответов
      */
-    public StubInput(final String[] value) {
+    public StubInput(final List<String> value) {
         this.value = value;
+        iterator = value.listIterator();
     }
 
     /**
@@ -33,7 +36,7 @@ public class StubInput implements Input {
      */
     @Override
     public String ask(String question) {
-        return this.value[this.position++];
+        return this.iterator.next();
     }
 
     /**
@@ -43,8 +46,8 @@ public class StubInput implements Input {
      * @return ответ из массива
      */
     @Override
-    public int ask(String question, int[] range) {
-        int key = Integer.valueOf(this.value[this.position++]);
+    public int ask(String question, List<Integer> range) {
+        int key = Integer.valueOf(this.iterator.next());
         boolean exist = false;
         for (int value : range) {
             if (value == key) {

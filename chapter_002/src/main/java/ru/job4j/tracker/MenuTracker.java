@@ -1,5 +1,8 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Viacheslav Bulatov (bul290896@yandex.ru)
  * @version $Id$
@@ -15,9 +18,9 @@ public class MenuTracker {
      */
     private Tracker tracker;
     /**
-     * хранит ссылку на массив типа UserAction.
+     * хранит ссылку на список типа UserAction.
      */
-    private UserAction[] actions = new UserAction[7];
+    private List<UserAction> actions = new ArrayList<>();
     /**
      * отвечает за выход из программы
      */
@@ -32,22 +35,22 @@ public class MenuTracker {
         this.tracker = tracker;
     }
     /**
-     * Массив допустимых ответов пользователя в меню
+     * Список допустимых ответов пользователя в меню
      */
-    private int[] range = new int[actions.length];
+    private List<Integer> range = new ArrayList<>();
     /**
      * Заполняет массив допустимых ответов пользователя в меню
      */
     public void fillRange() {
-        for (int i = 0; i < actions.length; i++) {
-            range[i] = actions[i].key();
+        for (UserAction action: this.actions) {
+            range.add(action.key());
         }
     }
     /**
      * Возвращает массив допустимых ответов пользователя в меню
      * @return массив допустимых ответов пользователя в меню
      */
-    public int[] getRange() {
+    public List<Integer> getRange() {
         return range;
     }
     /**
@@ -62,13 +65,13 @@ public class MenuTracker {
      */
     public void fillActions() {
         int key = 0;
-        this.actions[key] = this.new AddItem(key++, "Add item");
-        this.actions[key] = this.new ShowAllItems(key++, "Show all items.");
-        this.actions[key] = this.new EditItem(key++, "Edit item.");
-        this.actions[key] = this.new DeleteItem(key++, "Delete item.");
-        this.actions[key] = this.new FindByID(key++, "Find item by Id.");
-        this.actions[key] = this.new FindByName(key++, "Find items by name.");
-        this.actions[key] = this.new Exit(key, "Exit.");
+        this.actions.add(this.new AddItem(key++, "Add item"));
+        this.actions.add(this.new ShowAllItems(key++, "Show all items."));
+        this.actions.add(this.new EditItem(key++, "Edit item."));
+        this.actions.add(this.new DeleteItem(key++, "Delete item."));
+        this.actions.add(this.new FindByID(key++, "Find item by Id."));
+        this.actions.add(this.new FindByName(key++, "Find items by name."));
+        this.actions.add(this.new Exit(key, "Exit."));
     }
     /**
      * Метод выводит на экран меню.
@@ -91,8 +94,8 @@ public class MenuTracker {
      * Вывод на консоль списка заявок
      * @param items массив заявок для вывода
      */
-    private void showAllItems(Item[] items) {
-        if (items.length == 0) {
+    private void showAllItems(List<Item> items) {
+        if (items.size() == 0) {
             System.out.println("Заявок нет");
         } else {
             System.out.println("*");
@@ -108,7 +111,7 @@ public class MenuTracker {
      * @param key ключ операции
      */
     public void select(int key) {
-        this.actions[key].execute(this.input, this.tracker);
+        this.actions.get(key).execute(this.input, this.tracker);
     }
     /**
      * Реализация пункта меню: Add new Item.

@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 /**
  * @author Viacheslav Bulatov (bul290896@yandex.ru)
  * @version $Id$
@@ -35,7 +37,7 @@ public class ValidateInput implements Input {
      * @param range список возможных ответов
      * @return ответ пользователя или ошибку
      */
-    public int ask(String question, int[] range) {
+    public int ask(String question, List<Integer> range) {
         boolean invalid = true;
         int value = -1;
         do {
